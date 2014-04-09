@@ -22,4 +22,4 @@ _testmain.go
 *.exe
 *.test
 
-selenium-webdriver-java
+selenium-webdriver

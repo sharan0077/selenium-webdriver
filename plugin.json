@@ -1,12 +1,12 @@
 {
-	"id" : "selenium-webdriver-java",
+	"id" : "selenium-webdriver",
 	"version" : "1.0.0",
 	"name" : "Selenium",
 	"description" : "first plugin in history of twist2",
 	"command" : {
-		"windows" : "selenium-webdriver-java",
-		"linux" : "selenium-webdriver-java",
-		"darwin" : "selenium-webdriver-java"
+		"windows" : "selenium-webdriver",
+		"linux" : "selenium-webdriver",
+		"darwin" : "selenium-webdriver"
 	},
 	"scope" : ["Execution"]
 }

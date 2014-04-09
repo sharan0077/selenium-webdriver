@@ -10,13 +10,13 @@ endif
 PROGRAM_NAME=twist2
 
 build:
-	export GOPATH=$(GOPATH):`pwd` && cd src && go build && mv src ../selenium-webdriver-java
+	export GOPATH=$(GOPATH):`pwd` && cd src && go build && mv src ../selenium-webdriver
 
 install:	
 	install -m 755 -d $(prefix)/share/$(PROGRAM_NAME)/plugins
-	install -m 755 -d $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver-java
-	install -m 755 -d $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver-java/$(version)
-	install -m 755 selenium-webdriver-java $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver-java/$(version)
-	install -m 644 plugin.json $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver-java/$(version)
+	install -m 755 -d $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver
+	install -m 755 -d $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)
+	install -m 755 selenium-webdriver $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)
+	install -m 644 plugin.json $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)
 
 	
