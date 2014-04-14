@@ -6,6 +6,8 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"regexp"
+	"errors"
 )
 
 func setupJavaVersion(versionParts []string) {
@@ -27,28 +29,44 @@ func setupJavaVersion(versionParts []string) {
 	}
 }
 
+func findLatestVersion() (string, error) {
+	downloadLink := "http://docs.seleniumhq.org/download/"
+	tmp := os.TempDir()
+	err := common.Download(downloadLink, tmp) 
+	if err != nil{
+		return "" , errors.New(fmt.Sprintf("Failed to download %s\n", downloadLink))
+	}
+	downloadedFileContents := common.ReadFileContents(filepath.Join(tmp, "download"))
+	seleniumDownloadLinkPattern := regexp.MustCompile("http://selenium-release.storage.googleapis.com/.*/selenium-server-standalone-.*.jar")
+	latestVersion := strings.Split((seleniumDownloadLinkPattern.FindString(downloadedFileContents)),"-")
+	seleniumVersion := strings.Split((latestVersion[len(latestVersion)-1]),".jar")[0]
+	return seleniumVersion , nil;
+}
+
 func main() {
 	action := os.Getenv("selenium-webdriver_action")
+	language := os.Getenv("test_language")
+	seleniumVersion := os.Getenv("selenium_version")
 	if action == "setup" {
-		seleniumVersion := os.Getenv("selenium_version")
-		if seleniumVersion == "" {
-			fmt.Println("Finding latest version of selenium is not implemented. Provide selenium version")
-			os.Exit(1)
-		}
-
-		versionParts := strings.Split(seleniumVersion, ".")
-		if len(versionParts) != 3 {
-			fmt.Println("Incorrect version format. It should be major.minor.patch")
-			os.Exit(1)
-		}
-
-		language := os.Getenv("test_language")
 		switch language {
-		case "java":
-			setupJavaVersion(versionParts)
-		default:
-			fmt.Println("Language not supported")
-			os.Exit(1)
+			case "java" :
+				if seleniumVersion == "" {
+					latestVersion, err := findLatestVersion()
+					if(err != nil){
+						fmt.Println(err.Error())
+						os.Exit(1)
+					}
+					seleniumVersion = latestVersion
+				}
+				versionParts := strings.Split(seleniumVersion, ".")
+				if len(versionParts) != 3 {
+					fmt.Println("Incorrect version format. It should be major.minor.patch")
+					os.Exit(1)
+				}
+				setupJavaVersion(versionParts)	
+			default :
+				fmt.Println("Language not supported")
+				os.Exit(1)
 		}
 	}
-}
+}		
