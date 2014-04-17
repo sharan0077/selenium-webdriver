@@ -10,6 +10,11 @@ import (
 	"errors"
 )
 
+const (
+	WebdriverBrowserFactory = "WebdriverBrowserFactory.java"
+	WebdriverHooks = "WebdriverHooks.java"
+)
+
 func setupJavaVersion(versionParts []string) {
 	downloadLink := fmt.Sprintf("http://selenium-release.storage.googleapis.com/%s.%s/selenium-server-standalone-%s.%s.%s.jar",
 		versionParts[0], versionParts[1], versionParts[0], versionParts[1], versionParts[2])
@@ -20,14 +25,35 @@ func setupJavaVersion(versionParts []string) {
 			os.Exit(1)
 		}
 	}
-
 	absLibs, _ := filepath.Abs("libs")
 	err := common.Download(downloadLink, absLibs)
 	if err != nil {
 		fmt.Printf("Failed to download %s. %s\n", downloadLink, err.Error())
 		os.Exit(1)
 	}
+
+	// Copies Files WebdriverBrowserFactory.java && WebdriverHooks.java into project src 
+	pluginsPath,err := common.GetPluginsPath()
+	if(err != nil){
+		fmt.Printf("Could not find plugins path")
+		os.Exit(1)
+	}
+	javaPluginsPath := filepath.Join(pluginsPath,"selenium-webdriver","0.0.0","skel","java")
+	projectSrc := filepath.Join(common.GetProjectRoot(),"src")
+	err = common.CopyFile(filepath.Join(javaPluginsPath,WebdriverBrowserFactory) , filepath.Join(projectSrc,WebdriverBrowserFactory))
+	if(err != nil){
+		fmt.Printf("failed to Copy File %s ",WebdriverBrowserFactory)
+		os.Exit(1)
+	}
+	err = common.CopyFile(filepath.Join(javaPluginsPath,WebdriverHooks) , filepath.Join(projectSrc,WebdriverHooks))
+	if(err != nil){
+		fmt.Printf("failed to Copy File %s ",WebdriverHooks)
+		os.Exit(1)
+	}
 }
+
+
+
 
 func findLatestVersion() (string, error) {
 	downloadLink := "http://docs.seleniumhq.org/download/"
