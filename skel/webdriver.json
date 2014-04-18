@@ -1,0 +1,5 @@
+{
+	"variables": {
+			"webdriver_driver": "firefox"
+	}
+}

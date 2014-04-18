@@ -13,6 +13,7 @@ import (
 const (
 	WebdriverBrowserFactory = "WebdriverBrowserFactory.java"
 	WebdriverHooks = "WebdriverHooks.java"
+	Webdriver = "Webdriver.json"
 )
 
 func setupJavaVersion(versionParts []string) {
@@ -48,6 +49,12 @@ func setupJavaVersion(versionParts []string) {
 	err = common.CopyFile(filepath.Join(javaPluginsPath,WebdriverHooks) , filepath.Join(projectSrc,WebdriverHooks))
 	if(err != nil){
 		fmt.Printf("failed to Copy File %s ",WebdriverHooks)
+		os.Exit(1)
+	}
+	projectEnv := filepath.Join(common.GetProjectRoot(),"env","default")
+	err = common.CopyFile(filepath.Join(javaPluginsPath,Webdriver) , filepath.Join(projectEnv,Webdriver))
+	if (err != nil) {
+		fmt.Printf("failed to Copy File %s ",Webdriver)
 		os.Exit(1)
 	}
 }
