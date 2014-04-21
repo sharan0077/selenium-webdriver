@@ -1,11 +1,5 @@
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.safari.SafariDriver;
-
 
 import java.lang.Exception;
 import java.util.HashMap;
@@ -27,12 +21,12 @@ public class WebdriverBrowserFactory {
         }
     }
 
-    public static WebDriver getBroser(){
+    public static WebDriver getBrowser(){
         return driver;
     }
 
     public static void kill(){
-//        driver.kill();
+        driver.close();
     }
 
 }
