@@ -1,15 +1,15 @@
-import com.thoughtworks.twist2.AfterSpec;
-import com.thoughtworks.twist2.BeforeSpec;
+import com.thoughtworks.twist2.AfterSuite;
+import com.thoughtworks.twist2.BeforeSuite;
 
 
 public class WebdriverHooks {
 
-    @BeforeSpec
+    @BeforeSuite
     public void initializeBrowser()throws Exception{
         WebdriverBrowserFactory.init();
     }
 
-    @AfterSpec
+    @AfterSuite
     public void killBrowser(){
         WebdriverBrowserFactory.kill();
     }
