@@ -21,5 +21,4 @@ install:
 	install  -m 755 -d $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)/skel/java/
 	install  -m 644 skel/WebdriverBrowserFactory.java $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)/skel/java/
 	install  -m 644 skel/WebdriverHooks.java $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)/skel/java/
-	install -m 644 skel/webdriver.json $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)/skel/java/
-	
+	install -m 644 skel/webdriver.properties $(prefix)/share/$(PROGRAM_NAME)/plugins/selenium-webdriver/$(version)/skel/java/

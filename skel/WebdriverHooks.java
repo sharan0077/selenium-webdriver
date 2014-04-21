@@ -1,12 +1,12 @@
 import com.thoughtworks.twist2.AfterSpec;
 import com.thoughtworks.twist2.BeforeSpec;
-import org.openqa.selenium.remote.DesiredCapabilities;
+
 
 public class WebdriverHooks {
 
     @BeforeSpec
-    public void initializeBrowser(){
-        WebdriverBrowserFactory.init(DesiredCapabilities.firefox());
+    public void initializeBrowser()throws Exception{
+        WebdriverBrowserFactory.init();
     }
 
     @AfterSpec
