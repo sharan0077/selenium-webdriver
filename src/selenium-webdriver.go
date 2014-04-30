@@ -40,7 +40,12 @@ func setupJavaVersion(versionParts []string) {
 		os.Exit(1)
 	}
 	javaPluginsPath := filepath.Join(pluginsPath,"selenium-webdriver","0.0.0","skel","java")
-	projectSrc := filepath.Join(common.GetProjectRoot(),"src")
+	projectRoot,err := common.GetProjectRoot()
+	if(err != nil){
+		fmt.Printf("failed to get Project Source")
+		os.Exit(1)
+	}
+	projectSrc := filepath.Join(projectRoot,"src")
 	err = common.CopyFile(filepath.Join(javaPluginsPath,WebdriverBrowserFactory) , filepath.Join(projectSrc,WebdriverBrowserFactory))
 	if(err != nil){
 		fmt.Printf("failed to Copy File %s ",WebdriverBrowserFactory)
@@ -51,7 +56,7 @@ func setupJavaVersion(versionParts []string) {
 		fmt.Printf("failed to Copy File %s ",WebdriverHooks)
 		os.Exit(1)
 	}
-	projectEnv := filepath.Join(common.GetProjectRoot(),"env","default")
+	projectEnv := filepath.Join(projectRoot,"env","default")
 	err = common.CopyFile(filepath.Join(javaPluginsPath, WebdriverPropertiesFile) , filepath.Join(projectEnv, WebdriverPropertiesFile))
 	if (err != nil) {
 		fmt.Printf("failed to Copy File %s ", WebdriverPropertiesFile)
